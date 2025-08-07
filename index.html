@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>EduSpark - Learn Smarter</title>
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #001f3f 0%, #000000 50%, #001f3f 100%);
+      --text-color: #ffffff;
+      --button-bg: #000000;
+      --button-border: #00ffe7;
+      --button-text: #00ffe7;
+      --button-glow: #00ffe7;
+      --tagline-glow: #00ffe7;
+    }
+
+    body.light-mode {
+      --bg-gradient: linear-gradient(135deg, #fff8dc 0%, #ff4d4d 50%, #fff8dc 100%);
+      --text-color: #b30000;
+      --button-bg: #fff8dc;
+      --button-border: #b30000;
+      --button-text: #b30000;
+      --button-glow: #ff4d4d;
+      --tagline-glow: #ff4d4d;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Particle background canvas */
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      background: var(--bg-gradient);
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      color: var(--text-color);
+      text-align: center;
+      padding: 30px 20px;
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+
+    .toggle-container {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .toggle-btn {
+      padding: 8px 16px;
+      background-color: var(--button-border);
+      border: none;
+      border-radius: 20px;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px var(--button-glow);
+    }
+
+    .logo {
+      width: 140px;
+      height: auto;
+      margin: 0 auto 10px;
+    }
+
+    .tagline {
+      font-style: italic;
+      color: var(--button-text);
+      margin-bottom: 30px;
+      font-size: 1.1rem;
+      text-shadow: 0 0 6px var(--tagline-glow), 0 0 10px var(--tagline-glow);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px var(--button-glow);
+    }
+
+    p {
+      font-size: 1.3rem;
+      margin-bottom: 40px;
+      color: var(--text-color);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 15px 30px;
+      margin: 12px;
+      font-size: 1.1rem;
+      background-color: var(--button-bg);
+      border: 2px solid var(--button-border);
+      border-radius: 10px;
+      color: var(--button-text);
+      text-decoration: none;
+      box-shadow: 0 0 12px var(--button-glow);
+      transition: 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: var(--button-text);
+      color: var(--button-bg);
+      box-shadow: 0 0 20px var(--button-glow), 0 0 40px var(--button-glow);
+      transform: scale(1.05);
+    }
+.about-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: 2px solid var(--button-border);
+  border-radius: 30px;
+  box-shadow: 0 0 12px var(--button-glow);
+  text-decoration: none;
+  z-index: 10;
+  transition: 0.3s ease;
+}
+
+.about-btn:hover {
+  background-color: var(--button-text);
+  color: var(--button-bg);
+  transform: scale(1.05);
+  box-shadow: 0 0 20px var(--button-glow), 0 0 40px var(--button-glow);
+}
+
+  </style>
+</head>
+<body>
+  <!-- Particles Canvas Background -->
+  <div id="particles-js"></div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Toggle Button -->
+    <div class="toggle-container">
+      <button class="toggle-btn" onclick="toggleMode()">🌗 Toggle Mode</button>
+    </div>
+
+    <!-- Logo and Tagline -->
+    <img src="logo.png" alt="EduSpark Logo" class="logo" />
+    <div class="tagline">Education is power...</div>
+
+    <h1>Welcome to EduSpark</h1>
+    <p>Tap a subject to begin your learning journey!</p>
+
+    <!-- Buttons -->
+    <a class="btn" href="math.html">Math</a>
+    <a class="btn" href="science.html">Science</a>
+    <a class="btn" href="english.html">English</a>
+    <a class="btn" href="hindi.html">Hindi</a>
+    <a class="btn" href="ai.html">AI / IT</a>
+    <a class="btn" href="social_studies.html">Social Studies</a>
+    <a class="btn" href="Pencil Top.html">✏️ Pencil Top</a>
+    <a class="btn" href="Voxly.html">🤖 Voxly - Your Personal Chatbot</a>
+    <a href="About Us.html" class="about-btn">ℹ️ About Us</a>
+
+    
+  </div>
+
+  <!-- Particle.js CDN -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+  <!-- Particle Settings -->
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: {
+          value: 60,
+          density: { enable: true, value_area: 800 }
+        },
+        color: { value: "#ffffff" },
+        shape: { type: "circle" },
+        opacity: { value: 0.3 },
+        size: { value: 3, random: true },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: "#ffffff",
+          opacity: 0.2,
+          width: 1
+        },
+        move: {
+          enable: true,
+          speed: 2,
+          direction: "none",
+          out_mode: "out"
+        }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "repulse" },
+          onclick: { enable: false },
+          resize: true
+        },
+        modes: {
+          repulse: { distance: 100, duration: 0.4 }
+        }
+      },
+      retina_detect: true
+    });
+  </script>
+
+  <!-- Light/Dark Mode Script -->
+  <script>
+    function toggleMode() {
+      document.body.classList.toggle('light-mode');
+    }
+  </script>
+</body>
+</html>

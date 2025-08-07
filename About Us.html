@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>About Us - EduSpark</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+.top-bar-centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.logo {
+  height: 160px; /* Or increase if needed */
+  width: auto;
+}
+
+.tagline {
+  color: #FFFFFF; /* or #C6FF00 for lime green */
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 8px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: linear-gradient(-45deg,
+        #000000,
+        #0b0b0b,
+        #001f3f,
+        #FFD700,
+        #001f3f,
+        #0b0b0b,
+        #000000
+      );
+      background-size: 500% 500%;
+      animation: gradientShift 25s ease infinite;
+      font-family: 'Segoe UI', sans-serif;
+      color: #ffffff;
+      overflow-y: scroll;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 20px 100px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+      color: #FFD700; /* Gold */
+      text-shadow: 0 0 2px #FFD700, 0 0 4px #333333;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .team {
+      text-align: left;
+      margin-top: 40px;
+    }
+
+    .member {
+      margin-bottom: 25px;
+      padding: 18px;
+      background-color: rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+    }
+
+    .member h3 {
+      margin: 0;
+      color: #39FF14;
+      font-size: 22px;
+    }
+
+    .member p {
+      margin: 6px 0 0;
+      font-size: 16px;
+      color: #f1f1f1;
+    }
+
+  </style>
+</head>
+<body>
+<div class="top-bar-centered">
+  <img src="logo.png" alt="EduSpark Logo" class="logo">
+  <div class="tagline">Education is Power</div>
+</div>
+  <div class="container">
+    <h1>About Us</h1>
+    <p>We 'AI Innovators' are the creators of <strong>EduSpark</strong> — a modern educational platform built to empower learning with AI, voice tech, and creativity.</p>
+    <p>We are still studying in class 10 and have implemented all the things that we have learnt in AI till now and will continue to do the same. We expect this to become a fully student-friendly app in the future with our constant updations and with the constant support of our school management and our AI and IT teachers. Thank You for using this app and supporting us !!!</p>
+    <div class="team">
+      <div class="member">
+        <h3>Aman Gopal</h3>
+        <p>Role: Lead Developer, UI Designer, AI Integrator, Team Leader with a Vision for a better Futuristic World.</p>
+        <p>Built the speech recognition note system, educational framework, full frontend with HTML and MIT app Inventor.</p>
+      </div>
+
+      <div class="member">
+        <h3>Sarah Fatima</h3>
+        <p>Role: Voice Tools and Backend Logic. A lead factor of Motivation for the team along with the team leader, always supported the team leader with his innovative ideas !</p>
+        <p>Supported integration of multilingual voice input and playback.</p>
+      </div>
+
+      <div class="member">
+        <h3>Mayank Premdas Kachave</h3>
+        <p>Role: Content Manager & Resource Curator. Helped by finding out errors and by helping to test and evaluate the model.</p>
+        <p>Added subject-wise YouTube links, structured video learning. Found some crucial solutions for the best of our app.</p>
+      </div>
+
+      <!-- Add more teammates if needed -->
+    </div>
+
+  </div>
+</body>
+</html>

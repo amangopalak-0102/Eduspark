@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>EduSpark Multilingual Notes</title>
+  <style>
+.top-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.logo {
+  height: 80px;
+  width: auto;
+}
+
+.tagline {
+  color: #FFFFFF; /* or use #C6FF00 for lime green */
+  font-size: 13px;
+  font-weight: bold;
+  margin-top: 8px;
+  font-family: 'Segoe UI', sans-serif;
+}
+  body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: linear-gradient(-45deg,
+    #000000,
+    #001f3f,
+    #003366,
+    #004080,
+    #001f3f,
+    #000000
+  );
+  background-size: 500% 500%;
+  animation: gradientShift 25s ease infinite;
+  font-family: 'Segoe UI', sans-serif;
+  color: #ffffff;
+  text-align: center;
+  padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+   
+    .subtitle {
+  color: #FFFFFF; /* White */
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: -10px;
+  margin-bottom: 25px;
+  letter-spacing: 0.5px;
+}
+
+    textarea {
+      width: 90%;
+      height: 200px;
+      font-size: 1.2rem;
+      padding: 10px;
+      margin-top: 15px;
+      border-radius: 8px;
+      border: none;
+      resize: none;
+      box-shadow: 0 0 10px rgba(255,255,255,0.1);
+    }
+
+    button, select {
+      margin: 10px;
+      padding: 12px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #dddddd;
+      color: black;
+    }
+
+    #modeStatus {
+      margin-top: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<div class="top-bar" style="flex-direction: column; align-items: center;">
+  <img src="logo.png" alt="EduSpark Logo" class="logo">
+  <div class="tagline">Education is Power</div>
+</div>
+  <h1>EduSpark Multilingual Voice Notes</h1>
+
+  <p class="subtitle">🎙️ You can record your voice or write your own notes below.</p>
+  <label for="language">🎙️ Choose Language:</label>
+  <select id="language">
+    <option value="en-IN">English (India)</option>
+    <option value="hi-IN">Hindi</option>
+    <option value="en-US">English (US)</option>
+    <option value="fr-FR">French</option>
+    <option value="es-ES">Spanish</option>
+  </select>
+
+  <select id="voiceSelect"></select><br/>
+
+  <div>
+    <button onclick="startListening()">🎤 Start</button>
+    <button onclick="stopListening()">🛑 Stop</button>
+    <button onclick="cleanText()">🧹 Clean</button>
+    <button onclick="speakText()" id="speakBtn">🔊 Speak</button>
+    <button onclick="clearText()">🔁 Clear</button>
+    <button onclick="saveText()">💾 Save</button>
+    <button onclick="toggleMode()" id="modeButton">🌐 Check Mode</button>
+  </div>
+
+  <textarea id="output" placeholder="Your text will appear here..." spellcheck="true"></textarea>
+
+  <p id="modeStatus"></p>
+
+  <script>
+    const output = document.getElementById("output");
+    const langSelect = document.getElementById("language");
+    const voiceSelect = document.getElementById("voiceSelect");
+    const speakButton = document.getElementById("speakBtn");
+
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.continuous = true;
+    recognition.interimResults = false;
+
+    function setLang() {
+      recognition.lang = langSelect.value;
+    }
+
+    setLang();
+    langSelect.onchange = setLang;
+
+    recognition.onresult = function(event) {
+      const transcript = event.results[event.results.length - 1][0].transcript.trim();
+      output.value += transcript.charAt(0).toUpperCase() + transcript.slice(1) + ". ";
+    };
+
+    function startListening() {
+      recognition.start();
+    }
+
+    function stopListening() {
+      recognition.stop();
+    }
+
+    function cleanText() {
+      let text = output.value.trim();
+      if (!text) return;
+      text = text.replace(/\s+/g, " ");
+      text = text.replace(/([a-z])([A-Z])/g, "$1. $2");
+      text = text.replace(/([.?!])(?=[A-Za-z])/g, "$1 ");
+      let sentences = text.split(/(?<=[.?!])\s+/).map(s => {
+        s = s.trim();
+        if (!s) return "";
+        s = s.charAt(0).toUpperCase() + s.slice(1);
+        if (!/[.?!]$/.test(s)) s += ".";
+        return s;
+      });
+      output.value = sentences.join(" ");
+    }
+
+    function speakText() {
+      const text = output.value;
+      const selectedVoice = voiceSelect.value;
+      const sentences = text.split(/(?<=[.?!])\s+/);
+      sentences.forEach(sentence => {
+        const utter = new SpeechSynthesisUtterance(sentence);
+        utter.voice = voices.find(v => v.name === selectedVoice);
+        speechSynthesis.speak(utter);
+      });
+    }
+
+    function clearText() {
+      output.value = "";
+    }
+
+    function saveText() {
+      const blob = new Blob([output.value], { type: "text/plain" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "eduspark_multilang_notes.txt";
+      link.click();
+    }
+
+    function goBack() {
+      window.history.back();
+    }
+
+    function populateVoices() {
+  voices = speechSynthesis.getVoices();
+  voiceSelect.innerHTML = "";
+
+  voices.forEach((voice) => {
+    const option = document.createElement("option");
+    option.value = voice.name;
+    option.textContent = `${voice.name} (${voice.lang})`;
+    voiceSelect.appendChild(option);
+  });
+}
+
+    window.speechSynthesis.onvoiceschanged = populateVoices;
+
+    function toggleMode() {
+      if (navigator.onLine) {
+        output.setAttribute("spellcheck", "true");
+        document.getElementById("modeStatus").textContent = "✅ Online Mode: Spellcheck ON";
+      } else {
+        output.setAttribute("spellcheck", "false");
+        document.getElementById("modeStatus").textContent = "⚠️ Offline Mode: Spellcheck OFF";
+      }
+      updateSpeechStatus();
+    }
+
+    function updateSpeechStatus() {
+      if (navigator.onLine && 'speechSynthesis' in window) {
+        speakButton.disabled = false;
+        speakButton.textContent = "🔊 Speak";
+      } else {
+        speakButton.disabled = true;
+        speakButton.textContent = "❌ Speak (Offline)";
+      }
+    }
+
+    window.addEventListener("load", () => {
+      toggleMode();
+      populateVoices();
+    });
+
+    window.addEventListener("online", () => {
+      toggleMode();
+    });
+
+    window.addEventListener("offline", () => {
+      toggleMode();
+    });
+  </script>
+</body>
+</html>
+    
